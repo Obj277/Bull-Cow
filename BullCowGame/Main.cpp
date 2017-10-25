@@ -29,7 +29,7 @@ int main()
 void PrintIntro()
 {
 	// introduce the game
-	constexpr int32 WORD_LENGTH = 5;
+	int32 WORD_LENGTH = BCGame.GetHiddenWordLength();
 	std::cout << "Welcome to Bulls and Cows\n";
 	std::cout << "Can you guess the " << WORD_LENGTH;
 	std::cout << " letter isogram I'm thinking of?\n";
@@ -45,22 +45,23 @@ void PlayGame()
 	// TODO change from FOR to WHILE loop once are validating tries
 	for (int32 i = 0; i < MaxTries; i++)
 	{
-		FText Guess = GetGuess(); // TODO make loop checking valid
+		FText Guess = GetGuess(); 
 
-		// submit valid guess to the game
+		EGuessStatus Status = BCGame.CheckGuessValidity(Guess);
+
+		// submit valid guess to the game, and receive counts
 		FBullCowCount BullCowCount = BCGame.SubmitGuess(Guess);
+
 		// Print number of bulls and cows
 		std::cout << "Bulls = " << BullCowCount.Bulls;
 		std::cout << ". Cows = " << BullCowCount.Cows << std::endl;
-
-		std::cout << "Your guess was: " << Guess << std::endl;
 		std::cout << std::endl;
 	}
 
 	// TODO summarize game
 }
 
-FText GetGuess()
+FText GetGuess() // TODO make loop checking valid guess
 {
 	int32 CurrentTry = BCGame.GetCurrentTry();
 
