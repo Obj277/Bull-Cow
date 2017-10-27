@@ -22,7 +22,7 @@ enum class EGuessStatus
 class FBullCowGame
 {
 public:
-	FBullCowGame(); // constructor
+	FBullCowGame();
 
 	int32 GetMaxTries() const;
 	int32 GetCurrentTry() const;
@@ -30,7 +30,7 @@ public:
 	bool IsGameWon() const;
 	EGuessStatus CheckGuessValidity(FString) const;
 
-	void Reset(); // TODO make a more rich return value.
+	void Reset();
 	FBullCowCount SubmitValidGuess(FString);
 
 private:

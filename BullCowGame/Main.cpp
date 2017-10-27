@@ -1,7 +1,10 @@
+﻿#pragma once
+
 #include <iostream>
 #include <string>
 #include "FBullCowGame.h"
 
+// to make syntax Unreal friendly
 using FText = std::string;
 using int32 = int;
 
@@ -30,9 +33,17 @@ int main()
 void PrintIntro()
 {
 	// introduce the game
-	int32 WORD_LENGTH = BCGame.GetHiddenWordLength();
-	std::cout << "\n\nWelcome to Bulls and Cows\n";
-	std::cout << "Can you guess the " << WORD_LENGTH;
+	std::cout << "==========================================================================================" << std::endl;
+	std::cout << "   _______  __   __  ___      ___      _______   &   _______  _______  _     _  _______ " << std::endl;
+	std::cout << "  |  _    ||  | |  ||   |    |   |    |       |     |       ||       || | _ | ||       |" << std::endl;
+	std::cout << "  | |_|   ||  | |  ||   |    |   |    |  _____|     |       ||   _   || || || ||  _____|" << std::endl;
+	std::cout << "  |       ||  |_|  ||   |    |   |    | |_____      |       ||  | |  ||       || |_____ " << std::endl;
+	std::cout << "  |  _   | |       ||   |___ |   |___ |_____  |     |      _||  |_|  ||       ||_____  |" << std::endl;
+	std::cout << "  | |_|   ||       ||       ||       | _____| |     |     |_ |       ||   _   | _____| |" << std::endl;
+	std::cout << "  |_______||_______||_______||_______||_______|     |_______||_______||__| |__||_______|\n" << std::endl;
+	std::cout << "==========================================================================================" << std::endl;
+	std::cout << "\n\nWelcome to Bulls and Cows word game\n";	
+	std::cout << "Can you guess the " << BCGame.GetHiddenWordLength();
 	std::cout << " letter isogram I'm thinking of?\n";
 	std::cout << std::endl;
 }
@@ -67,26 +78,26 @@ FText GetValidGuess()
 	{
 		// get a guess from the player
 		int32 CurrentTry = BCGame.GetCurrentTry();
-		std::cout << "Try " << CurrentTry << ". Enter your guess: ";
-		getline(std::cin, Guess);
+		std::cout << "Try " << CurrentTry << " of " << BCGame.GetMaxTries();
+		std::cout << ". Enter your guess: ";
+		std::getline(std::cin, Guess);
 
 		Status = BCGame.CheckGuessValidity(Guess);
 		switch (Status)
 		{
 		case EGuessStatus::Not_Isogram:
-			std::cout << "Please enter a word without repeating letters.\n";
+			std::cout << "Please enter a word without repeating letters.\n\n";
 			break;
 		case EGuessStatus::Wrong_Length:
-			std::cout << "Please enter a " << BCGame.GetHiddenWordLength() << " letter word.\n";
+			std::cout << "Please enter a " << BCGame.GetHiddenWordLength() << " letter word.\n\n";
 			break;
 		case EGuessStatus::Not_Lowercase:
-			std::cout << "Please enter all lowercase letters.\n";
+			std::cout << "Please enter all lowercase letters.\n\n";
 			break;
 		default:
 			// assuming the guess is valid
 			break;
 		}
-		std::cout << std::endl;
 	} while (Status != EGuessStatus::OK); // keep looping until get no errors
 	return Guess;
 }
